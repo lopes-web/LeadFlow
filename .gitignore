@@ -27,3 +27,8 @@ yarn-error.log*
 .vscode
 *.swp
 *.swo
+
+# Executables
+*.exe
+postgresql*
+Cursor Setup*
