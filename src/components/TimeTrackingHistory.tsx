@@ -159,7 +159,7 @@ export function TimeTrackingHistory({ className }: TimeTrackingHistoryProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-[#2e3446] scrollbar-track-[#1c2132] hover:scrollbar-thumb-[#3e4456]">
             {history.map((activity) => (
               <div
                 key={activity.id}
