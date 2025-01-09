@@ -11,7 +11,6 @@ import {
   Timer,
   Zap
 } from "lucide-react";
-import { BackupButtons } from "@/components/BackupButtons";
 import { TimeTrackingProvider } from "@/contexts/TimeTrackingContext";
 import TimeTracking from "./TimeTracking";
 
@@ -77,7 +76,6 @@ const Index = () => {
                 <PlusCircle className="h-4 w-4" />
                 Novo Lead
               </Button>
-              <BackupButtons />
             </div>
           </div>
 
