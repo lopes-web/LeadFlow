@@ -8,7 +8,7 @@ export default function TimeTracking() {
 
   return (
     <FilterContext.Provider value={{ dateFilter, setDateFilter }}>
-      <div className="flex flex-col gap-6 p-6">
+      <div className="flex flex-col gap-6 py-6">
         <DailyGoals />
         <div className="grid gap-6 md:grid-cols-2">
           <TimeTracker />
