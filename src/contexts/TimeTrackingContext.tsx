@@ -9,6 +9,7 @@ interface TimeTrackingContextData {
   startTracking: (activity_type: string, notes?: string) => Promise<void>;
   stopTracking: () => Promise<void>;
   fetchHistory: (data: TimeTracking[]) => void;
+  deleteActivity: (id: string) => Promise<void>;
   lastUpdate: number;
 }
 
@@ -108,6 +109,20 @@ export function TimeTrackingProvider({ children }: TimeTrackingProviderProps) {
     setHistory(data);
   };
 
+  const deleteActivity = async (id: string) => {
+    const { error } = await supabase
+      .from("time_tracking")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      console.error("Erro ao deletar atividade:", error);
+      return;
+    }
+
+    setLastUpdate(Date.now());
+  };
+
   return (
     <TimeTrackingContext.Provider
       value={{
@@ -117,6 +132,7 @@ export function TimeTrackingProvider({ children }: TimeTrackingProviderProps) {
         startTracking,
         stopTracking,
         fetchHistory,
+        deleteActivity,
         lastUpdate,
       }}
     >

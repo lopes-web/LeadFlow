@@ -5,6 +5,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { format, subDays, startOfDay, endOfDay } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { supabase } from "@/lib/supabase";
+import { Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface TimeTrackingHistoryProps {
   className?: string;
@@ -28,7 +41,7 @@ export function useFilter() {
 }
 
 export function TimeTrackingHistory({ className }: TimeTrackingHistoryProps) {
-  const { history, fetchHistory, lastUpdate } = useTimeTracking();
+  const { history, fetchHistory, lastUpdate, deleteActivity } = useTimeTracking();
   const [dateFilter, setDateFilter] = useState<DateFilter>("today");
   const [activityFilter, setActivityFilter] = useState<ActivityType>("all");
 
@@ -162,8 +175,40 @@ export function TimeTrackingHistory({ className }: TimeTrackingHistoryProps) {
                     })}
                   </p>
                 </div>
-                <div className="text-sm font-medium text-white">
-                  {formatDuration(activity.duration || 0)}
+                <div className="flex items-center gap-4">
+                  <div className="text-sm font-medium text-white">
+                    {formatDuration(activity.duration || 0)}
+                  </div>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-gray-400 hover:text-red-500 hover:bg-red-500/10"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="bg-[#1c2132] border-[#2e3446]">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-white">Confirmar exclusão</AlertDialogTitle>
+                        <AlertDialogDescription className="text-gray-400">
+                          Tem certeza que deseja excluir esta atividade? Esta ação não pode ser desfeita.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel className="bg-[#222839] text-white hover:bg-[#2a324b] border-[#2e3446]">
+                          Cancelar
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => deleteActivity(activity.id)}
+                          className="bg-red-500 hover:bg-red-600 text-white border-none"
+                        >
+                          Excluir
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
               </div>
             ))}
