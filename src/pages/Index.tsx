@@ -3,7 +3,6 @@ import { Dashboard } from "@/components/Dashboard";
 import { Kanban } from "@/components/Kanban";
 import { LeadModal } from "@/components/LeadModal";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { 
   PlusCircle, 
   LayoutDashboard, 
